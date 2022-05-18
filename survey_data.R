@@ -1,7 +1,8 @@
 library(fmsb)
 library(stats)
 library(tidyverse)
-library(xlsx)
+#library(xlsx)
+
 
 # code below based adjusted and based on https://github.com/elenamondino/nationwide_survey/blob/main/Rcode.R
 df <- read.csv("data/Dataset_round1_august2020.csv", header = TRUE, na = "999")
@@ -32,8 +33,8 @@ df_dam <- df[, c(15:32, 85)] # takes only the columns needed for the chart
 only_columns_for_chart <- df_dam %>% names()
 
 
-df_new <- read.csv("data/18052022_survey.csv", header = TRUE, na = "999")
-not_needed_columns <- c("Sygnatura.czasowa")
+df_new <- read.csv("data/survey.csv", header = TRUE, na = "999")
+not_needed_columns <- c("Timestamp")
 df_new <- df_new %>% select(-not_needed_columns)
 
 mapping_tibble <- readxl ::read_excel("data\\mapping_tibble.xlsx")
