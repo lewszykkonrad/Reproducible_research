@@ -3,6 +3,35 @@ library(stats)
 library(tidyverse)
 library(xlsx)
 
+# code below based adjusted and based on https://github.com/elenamondino/nationwide_survey/blob/main/Rcode.R
+df <- read.csv("data/Dataset_round1_august2020.csv", header = TRUE, na = "999")
+# Rename the columns for ease of use
+colnames(df) <- c("INTNR", "gender", "age", "region_ita", "region_swe",
+                  "lik_ep", "lik_fl", "lik_dr", "lik_wf", "lik_ea", "lik_ta", "lik_dv", "lik_ec", "lik_cc",
+                  "dam_ep",  "dam_fl", "dam_dr", "dam_wf", "dam_ea", "dam_ta", "dam_dv", "dam_ec", "dam_cc",
+                  "dam_oth_ep", "dam_oth_fl", "dam_oth_dr", "dam_oth_wf", "dam_oth_ea", "dam_oth_ta", "dam_oth_dv", "dam_oth_ec", "dam_oth_cc",
+                  "prep_aut_ep", "prep_aut_fl", "prep_aut_dr", "prep_aut_wf", "prep_aut_ea", "prep_aut_ta", "prep_aut_dv", "prep_aut_ec", "prep_aut_cc",
+                  "prep_ep", "prep_fl", "prep_dr", "prep_wf", "prep_ea", "prep_ta", "prep_dv", "prep_ec", "prep_cc",
+                  "know_aut_ep", "know_aut_fl", "know_aut_dr", "know_aut_wf", "know_aut_ea", "know_aut_ta", "know_aut_dv", "know_aut_ec", "know_aut_cc",
+                  "know_ep", "know_fl", "know_dr", "know_wf", "know_ea", "know_ta", "know_dv", "know_ec", "know_cc",
+                  "exp_ep", "exp_fl", "exp_dr", "exp_wf", "exp_ea", "exp_ta", "exp_dv", "exp_ec", "exp_cc",
+                  "edu", "income", "work", "sector", "pol", "weight", "area")
+df$area2 <- ifelse(df$area == 1, 1,
+                   ifelse(df$area == 2, 1, 2))
+df$area2 <- as.factor(df$area2) # creates a factor with 2 levels (Italy = 1, Sweden = 2)
+# here we exclude not needed columns
+df_research <- df
+not_needed_columns <- c("INTNR", "region_ita", "region_swe", "weight", "pol", "area")
+df_research <- df_research %>% select(-not_needed_columns)
+
+# How to create the radar charts (example for the variable "Impact") ----
+library(fmsb)
+library(stats)
+
+df_dam <- df[, c(15:32, 85)] # takes only the columns needed for the chart
+only_columns_for_chart <- df_dam %>% names()
+
+
 df_new <- read.csv("data/18052022_survey.csv", header = TRUE, na = "999")
 not_needed_columns <- c("Sygnatura.czasowa")
 df_new <- df_new %>% select(-not_needed_columns)
@@ -61,7 +90,8 @@ df_new_yes_no_mapped <- df_new_yes_no_longer %>%
   pivot_wider(id_cols = nr_row, names_from = name, values_from =  int_value)
 
 
-df_new_all_cols <- df_new_mapped %>%
+df_new_all_cols <- df_new_yes_no_mapped %>%
+  inner_join(df_new_likert_mapped, on = "nr_row") %>%
   inner_join(df_new_all, on = "nr_row") %>%
   inner_join(df_new_age, on = "nr_row")
 
@@ -77,7 +107,7 @@ df_new_final <- df_new_all_cols_int_mapped %>%
 
 df_extended <- bind_rows(df_research, df_new_final)
 
-# code below based adjusted and based on https://github.com/elenamondino/nationwide_survey/blob/main/Rcode.R
+# plots below based adjusted and based on https://github.com/elenamondino/nationwide_survey/blob/main/Rcode.R
 library(fmsb)
 library(stats)
 #df_dam <- df_extended[, c(15:32, 85)] # takes only the columns needed for the chart
