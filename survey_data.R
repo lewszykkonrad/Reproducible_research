@@ -6,6 +6,7 @@ library(tidyverse)
 
 # code below based adjusted and based on https://github.com/elenamondino/nationwide_survey/blob/main/Rcode.R
 df <- read.csv("data/Dataset_round1_august2020.csv", header = TRUE, na = "999")
+
 # Rename the columns for ease of use
 colnames(df) <- c("INTNR", "gender", "age", "region_ita", "region_swe",
                   "lik_ep", "lik_fl", "lik_dr", "lik_wf", "lik_ea", "lik_ta", "lik_dv", "lik_ec", "lik_cc",
@@ -17,9 +18,12 @@ colnames(df) <- c("INTNR", "gender", "age", "region_ita", "region_swe",
                   "know_ep", "know_fl", "know_dr", "know_wf", "know_ea", "know_ta", "know_dv", "know_ec", "know_cc",
                   "exp_ep", "exp_fl", "exp_dr", "exp_wf", "exp_ea", "exp_ta", "exp_dv", "exp_ec", "exp_cc",
                   "edu", "income", "work", "sector", "pol", "weight", "area")
-df$area2 <- ifelse(df$area == 1, 1,
-                   ifelse(df$area == 2, 1, 2))
-df$area2 <- as.factor(df$area2) # creates a factor with 2 levels (Italy = 1, Sweden = 2)
+
+
+# creates a factor with 2 levels (Italy = 1, Sweden = 2)
+df$area2 <- ifelse(df$area == 1, 1,ifelse(df$area == 2, 1, 2))
+df$area2 <- as.factor(df$area2) 
+
 # here we exclude not needed columns
 df_research <- df
 not_needed_columns <- c("INTNR", "region_ita", "region_swe", "weight", "pol", "area")
@@ -39,17 +43,22 @@ df_new <- df_new %>% select(-not_needed_columns)
 
 mapping_tibble <- readxl ::read_excel("data\\mapping_tibble.xlsx")
 
+#converting names of columns to a convenient format
 df_new <- df_new %>%
   rename_at(vars(as.character(mapping_tibble$our_names)),
             ~ as.character(mapping_tibble$original_names))
 
+#ensuring our variables are characters
 df_new <- df_new %>%
   mutate(across(everything(), as.character))
 
+#converting our data to a long format
 df_new_likert_longer <- df_new %>%
   mutate(nr_row = 1:nrow(.), .before = lik_ep) %>%
   select(nr_row:know_cc, sector, income) %>%
   pivot_longer(cols = -nr_row)
+
+
 
 df_new_yes_no_longer <- df_new %>%
   mutate(nr_row = 1:nrow(.), .before = exp_ep) %>%
@@ -68,7 +77,8 @@ df_new_likert_mapped <- df_new_likert_longer %>%
   mutate(first_char = str_replace_all(first_char, "\\.", "")) %>%
   mutate(int_value = if_else(first_char %in% c("1", "2", "3", "4", "5"),
                              first_char, NULL)) %>%
-  pivot_wider(id_cols = nr_row, names_from = name, values_from =  int_value)
+  pivot_wider(id_cols = nr_row, names_from = name, values_from = int_value)
+
 
 # other mapping
 df_for_other_mapping <-
@@ -111,6 +121,7 @@ df_extended <- bind_rows(df_research, df_new_final)
 # plots below based adjusted and based on https://github.com/elenamondino/nationwide_survey/blob/main/Rcode.R
 library(fmsb)
 library(stats)
+
 #df_dam <- df_extended[, c(15:32, 85)] # takes only the columns needed for the chart
 df_dam_extended <- df_extended %>%
   select(all_of(only_columns_for_chart))
@@ -158,6 +169,8 @@ df_dam_pol <- rbind(rep(5,9) , rep(1,9) , df_dam_pol) # adds rows for the succes
 # Create the radar charts ------------
 colors_border <- c("#b9de28ff", "#47972aff")
 
+#####################DAMAGE CHARTS############################# 
+
 chart_ita <- radarchart(df_dam_ita,
                         axistype = 1 ,
                         #customize the polygons
@@ -198,7 +211,7 @@ chart_swe <- radarchart(df_dam_swe,
 legend(x = 1.5, y = 1, legend = c("on the respondent", "on others in the country"),
        bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
 
-chart_swe <- radarchart(df_dam_pol,
+chart_pol <- radarchart(df_dam_pol,
                         axistype = 1 ,
                         #customize the polygons
                         pcol = colors_border,
@@ -216,4 +229,226 @@ chart_swe <- radarchart(df_dam_pol,
                         vlcex = 0.9,
                         title = "Poland - Perceived impact of the following threats")
 legend(x = 1.5, y = 1, legend = c("on the respondent", "on others in the country"),
+       bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
+
+#####################PREPAREDNESS CHARTS############################# 
+
+df_prep <- df[, c(33:50, 85)] # takes only the columns needed for the chart
+only_columns_for_chart <- df_prep %>% names()
+
+#selecting columns for preparedness 
+df_prep_extended <- df_extended %>%
+  select(all_of(only_columns_for_chart))
+
+# Dataframe for the variable "Impact on respondent"
+df_prep_aut <- aggregate(cbind(prep_aut_ep, prep_aut_fl, prep_aut_dr, prep_aut_wf,
+                               prep_aut_ea, prep_aut_ta, prep_aut_dv, prep_aut_ec, prep_aut_cc) ~ area2,
+                        data = df_prep_extended, mean, na.rm = FALSE) # calculates the mean for each of the variables listed in cbind, per country
+
+# Dataframe for the variable "Impact on others in the country"
+df_prep_ind <- aggregate(cbind(prep_ep, prep_fl, prep_dr, prep_wf,
+                               prep_ea, prep_ta, prep_dv, prep_ec, prep_cc) ~ area2,
+                        data = df_prep_extended, mean, na.rm = TRUE) # calculates the mean for each of the variables listed in cbind, per country
+
+colnames(df_prep_aut) <- c("area", "Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                          "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+colnames(df_prep_ind) <- c("area", "Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                          "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+
+
+# Create dataframe for Italy --------
+df_prep_ita <- rbind(df_prep_aut[1,], df_prep_ind[1,]) # puts together the first rows of the above dataframes (i.e. those referring to Italy)
+df_prep_ita <- df_prep_ita[,2:10]
+rownames(df_prep_ita) <- c("authorities", "the respondent")
+colnames(df_prep_ita) <- c("Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                          "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+df_prep_ita <- rbind(rep(5,9) , rep(1,9) , df_prep_ita) # adds rows for the successful creation of radarcharts
+
+
+# Create dataframe for Sweden ---------
+df_prep_swe <- rbind(df_prep_aut[2,], df_prep_ind[2,]) # puts together the second rows of the above dataframes (i.e. those referring to Sweden)
+df_prep_swe <- df_prep_swe[,2:10]
+rownames(df_prep_swe) <- c("authorities", "the respondent")
+colnames(df_prep_swe) <- c("Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                          "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+df_prep_swe <- rbind(rep(5,9) , rep(1,9) , df_prep_swe) # adds rows for the successful creation of radar charts
+
+# Create dataframe for Poland ---------
+df_prep_pol <- rbind(df_prep_aut[3,], df_prep_ind[3,]) # puts together the second rows of the above dataframes (i.e. those referring to Sweden)
+df_prep_pol <- df_prep_pol[,2:10]
+rownames(df_prep_pol) <- c("on the respondent", "on others in the country")
+colnames(df_prep_pol) <- c("Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                          "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+df_prep_pol <- rbind(rep(5,9) , rep(1,9) , df_prep_pol) # adds rows for the successful creation of radar charts
+
+chart_ita <- radarchart(df_prep_ita,
+                        axistype = 1 ,
+                        #customize the polygons
+                        pcol = colors_border,
+                        #pfcol = , # for filling the polygons
+                        pty = 32,
+                        plwd = 2,
+                        plty = 1,
+                        #customize the grid
+                        cglcol = "grey",
+                        cglty = 1,
+                        axislabcol = "grey",
+                        caxislabels = seq(1,5,1),
+                        cglwd = 0.8,
+                        #custom labels
+                        vlcex = 0.9,
+                        title = "Italy - Preparedness for the following threats")
+legend(x = 1.5, y = 1, legend = c("of authorities", "of the respondent"),
+       bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
+
+chart_swe <- radarchart(df_prep_swe,
+                        axistype = 1 ,
+                        #customize the polygons
+                        pcol = colors_border,
+                        #pfcol = , # for filling the polygons
+                        pty = 32,
+                        plwd = 2,
+                        plty = 1,
+                        #customize the grid
+                        cglcol = "grey",
+                        cglty = 1,
+                        axislabcol = "grey",
+                        caxislabels = seq(1,5,1),
+                        cglwd = 0.8,
+                        #custom labels
+                        vlcex = 0.9,
+                        title = "Sweden - Preparedness for the following threats")
+legend(x = 1.5, y = 1, legend = c("of authorities", "of the respondent"),
+       bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
+
+chart_pol <- radarchart(df_prep_pol,
+                        axistype = 1 ,
+                        #customize the polygons
+                        pcol = colors_border,
+                        #pfcol = , # for filling the polygons
+                        pty = 32,
+                        plwd = 2,
+                        plty = 1,
+                        #customize the grid
+                        cglcol = "grey",
+                        cglty = 1,
+                        axislabcol = "grey",
+                        caxislabels = seq(1,5,1),
+                        cglwd = 0.8,
+                        #custom labels
+                        vlcex = 0.9,
+                        title = "Poland - preparedness for the following threats")
+legend(x = 1.5, y = 1, legend = c("of authorities", "of the respondent"),
+       bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
+
+
+
+#####################KNOWLEDGE CHARTS#############################
+
+df_know <- df[, c(51:68, 85)] # takes only the columns needed for the chart
+only_columns_for_chart <- df_know %>% names()
+
+#selecting columns for preparedness 
+df_know_extended <- df_extended %>%
+  select(all_of(only_columns_for_chart))
+
+# Dataframe for the variable "Impact on respondent"
+df_know_aut <- aggregate(cbind(know_aut_ep, know_aut_fl, know_aut_dr, know_aut_wf,
+                               know_aut_ea, know_aut_ta, know_aut_dv, know_aut_ec, know_aut_cc) ~ area2,
+                         data = df_know_extended, mean, na.rm = FALSE) # calculates the mean for each of the variables listed in cbind, per country
+
+# Dataframe for the variable "Impact on others in the country"
+df_know_ind <- aggregate(cbind(know_ep, know_fl, know_dr, know_wf,
+                               know_ea, know_ta, know_dv, know_ec, know_cc) ~ area2,
+                         data = df_know_extended, mean, na.rm = TRUE) # calculates the mean for each of the variables listed in cbind, per country
+
+colnames(df_know_aut) <- c("area", "Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                           "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+colnames(df_know_ind) <- c("area", "Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                           "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+
+
+# Create dataframe for Italy --------
+df_know_ita <- rbind(df_know_aut[1,], df_know_ind[1,]) # puts together the first rows of the above dataframes (i.e. those referring to Italy)
+df_know_ita <- df_know_ita[,2:10]
+rownames(df_know_ita) <- c("authorities", "the respondent")
+colnames(df_know_ita) <- c("Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                           "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+df_know_ita <- rbind(rep(5,9) , rep(1,9) , df_know_ita) # adds rows for the successful creation of radarcharts
+
+
+# Create dataframe for Sweden ---------
+df_know_swe <- rbind(df_know_aut[2,], df_know_ind[2,]) # puts together the second rows of the above dataframes (i.e. those referring to Sweden)
+df_know_swe <- df_know_swe[,2:10]
+rownames(df_know_swe) <- c("authorities", "the respondent")
+colnames(df_know_swe) <- c("Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                           "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+df_know_swe <- rbind(rep(5,9) , rep(1,9) , df_know_swe) # adds rows for the successful creation of radar charts
+
+# Create dataframe for Poland ---------
+df_know_pol <- rbind(df_know_aut[3,], df_know_ind[3,]) # puts together the second rows of the above dataframes (i.e. those referring to Sweden)
+df_know_pol <- df_know_pol[,2:10]
+rownames(df_know_pol) <- c("on the respondent", "on others in the country")
+colnames(df_know_pol) <- c("Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                           "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+df_know_pol <- rbind(rep(5,9) , rep(1,9) , df_know_pol) # adds rows for the successful creation of radar charts
+
+chart_ita <- radarchart(df_know_ita,
+                        axistype = 1 ,
+                        #customize the polygons
+                        pcol = colors_border,
+                        #pfcol = , # for filling the polygons
+                        pty = 32,
+                        plwd = 2,
+                        plty = 1,
+                        #customize the grid
+                        cglcol = "grey",
+                        cglty = 1,
+                        axislabcol = "grey",
+                        caxislabels = seq(1,5,1),
+                        cglwd = 0.8,
+                        #custom labels
+                        vlcex = 0.9,
+                        title = "Italy - the level of knowledge in specific threat")
+legend(x = 1.5, y = 1, legend = c("of authorities", "of the respondent"),
+       bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
+
+chart_swe <- radarchart(df_know_swe,
+                        axistype = 1 ,
+                        #customize the polygons
+                        pcol = colors_border,
+                        #pfcol = , # for filling the polygons
+                        pty = 32,
+                        plwd = 2,
+                        plty = 1,
+                        #customize the grid
+                        cglcol = "grey",
+                        cglty = 1,
+                        axislabcol = "grey",
+                        caxislabels = seq(1,5,1),
+                        cglwd = 0.8,
+                        #custom labels
+                        vlcex = 0.9,
+                        title = "Sweden - the level of knowledge in specific threat")
+legend(x = 1.5, y = 1, legend = c("of authorities", "of the respondent"),
+       bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
+
+chart_pol <- radarchart(df_know_pol,
+                        axistype = 1 ,
+                        #customize the polygons
+                        pcol = colors_border,
+                        #pfcol = , # for filling the polygons
+                        pty = 32,
+                        plwd = 2,
+                        plty = 1,
+                        #customize the grid
+                        cglcol = "grey",
+                        cglty = 1,
+                        axislabcol = "grey",
+                        caxislabels = seq(1,5,1),
+                        cglwd = 0.8,
+                        #custom labels
+                        vlcex = 0.9,
+                        title = "Poland - the level of knowledge in specific threat")
+legend(x = 1.5, y = 1, legend = c("of authorities", "of the respondent"),
        bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
