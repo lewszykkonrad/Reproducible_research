@@ -125,6 +125,7 @@ library(stats)
 #df_dam <- df_extended[, c(15:32, 85)] # takes only the columns needed for the chart
 df_dam_extended <- df_extended %>%
   select(all_of(only_columns_for_chart))
+
 # Dataframe for the variable "Impact on respondent"
 df_dam_ind <- aggregate(cbind(dam_ep, dam_fl, dam_dr, dam_wf,
                               dam_ea, dam_ta, dam_dv, dam_ec, dam_cc) ~ area2,
@@ -452,3 +453,8 @@ chart_pol <- radarchart(df_know_pol,
                         title = "Poland - the level of knowledge in specific threat")
 legend(x = 1.5, y = 1, legend = c("of authorities", "of the respondent"),
        bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
+
+
+######WRITING FUNCTIONS FOR GRAPHING######
+
+
