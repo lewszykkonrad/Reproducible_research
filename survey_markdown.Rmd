@@ -178,13 +178,13 @@ aggregate_method <- function(dataset, start, end, aggregating_variable){
 
 ##### Specific country data preparation function
 ```{r}
-derive_dataframe_for_country <- function(dataframe_non_individual, dataframe_individual, row_to_select,
+derive_dataframe_for_country <- function(dataframe_1, dataframe_2, row_to_select,
                                          rowname_1, rowname_2){
-  colnames(dataframe_non_individual) <- c("area", "Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+  colnames(dataframe_1) <- c("area", "Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
                            "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
-  colnames(dataframe_individual) <- c("area", "Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+  colnames(dataframe_2) <- c("area", "Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
                            "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
-  df_to_return <- rbind(dataframe_non_individual[row_to_select,], dataframe_individual[row_to_select,])
+  df_to_return <- rbind(dataframe_1[row_to_select,], dataframe_2[row_to_select,])
   df_to_return <- df_to_return[,2:10]
   rownames(df_to_return) <- c(rowname_1, rowname_2)
   # colnames(df_to_return) <- c("area","Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
@@ -246,9 +246,9 @@ df_prep <- derive_necessary_columns(df, df_extended, 33, 50)
 df_prep_aut <- aggregate_method(df_prep, 1, 9, df_prep$area2)
 df_prep_ind <- aggregate_method(df_prep, 10, 18, df_prep$area2)
 
-df_prep_ita <- derive_dataframe_for_country(df_prep_aut, df_prep_ind, 1, "authorities", "respondent")
-df_prep_swe <- derive_dataframe_for_country(df_prep_aut, df_prep_ind, 2, "authorities", "respondent")
-df_prep_pol <- derive_dataframe_for_country(df_prep_aut, df_prep_ind, 3, "authorities", "respondent")
+df_prep_ita <- derive_dataframe_for_country( df_prep_ind, df_prep_aut, 1, "authorities", "respondent")
+df_prep_swe <- derive_dataframe_for_country( df_prep_ind, df_prep_aut, 2, "authorities", "respondent")
+df_prep_pol <- derive_dataframe_for_country( df_prep_ind, df_prep_aut, 3, "authorities", "respondent")
 ```
 
 ##### Knowledge
@@ -258,9 +258,9 @@ df_know <- derive_necessary_columns(df, df_extended, 51, 68)
 df_know_aut <- aggregate_method(df_know, 1, 9, df_know$area2)
 df_know_ind <- aggregate_method(df_know, 10, 18, df_know$area2)
 
-df_know_ita <- derive_dataframe_for_country(df_know_aut, df_know_ind, 1, "authorities", "respondent")
-df_know_swe <- derive_dataframe_for_country(df_know_aut, df_know_ind, 2, "authorities", "respondent")
-df_know_pol <- derive_dataframe_for_country(df_know_aut, df_know_ind, 3, "authorities", "respondent")
+df_know_ita <- derive_dataframe_for_country( df_know_ind,df_know_aut, 1, "authorities", "respondent")
+df_know_swe <- derive_dataframe_for_country( df_know_ind,df_know_aut, 2, "authorities", "respondent")
+df_know_pol <- derive_dataframe_for_country( df_know_ind,df_know_aut, 3, "authorities", "respondent")
 ```
 
 #### {-}
