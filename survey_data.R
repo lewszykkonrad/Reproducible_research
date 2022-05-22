@@ -457,4 +457,92 @@ legend(x = 1.5, y = 1, legend = c("of authorities", "of the respondent"),
 
 ######WRITING FUNCTIONS FOR GRAPHING######
 
+#function for deriving the variables that we need for a particular graph
+derive_necessary_columns <- function(dataframe_to_derive_column_names, dataframe_to_modify, start, end){
+  only_columns_for_chart <- dataframe_to_derive_column_names[,c(start:end, 85)] %>% names()
+  
+  final_dataframe <- dataframe_to_modify %>% select(all_of(only_columns_for_chart))
+  return(final_dataframe)
+}
 
+derive_necessary_columns(df, df_extended, 33, 50)
+
+df_dam_ind <- aggregate(cbind(dam_ep, dam_fl, dam_dr, dam_wf,
+                              dam_ea, dam_ta, dam_dv, dam_ec, dam_cc) ~ area2,
+                        data = df_dam_extended, mean, na.rm = FALSE) # calculates the mean for each of the variables listed in cbind, per country
+
+# Dataframe for the variable "Impact on others in the country"
+df_dam_oth <- aggregate(cbind(dam_oth_ep, dam_oth_fl, dam_oth_dr, dam_oth_wf,
+                              dam_oth_ea, dam_oth_ta, dam_oth_dv, dam_oth_ec, dam_oth_cc) ~ area2,
+                        data = df_dam_extended, mean, na.rm = TRUE) # calculates the mean for each of the variables listed in cbind, per country
+
+aggregate(df_dam_extended[,10:18], by = list(df_dam_extended$area2),
+           FUN = mean, na.rm = TRUE)
+
+aggregate_method <- function(dataset, start, end, aggregating_variable){
+  return(aggregate(dataset[,start:end], by = list(aggregating_variable),
+                   FUN = mean, na.rm = TRUE))
+}
+
+aggregate_method(df_dam_extended, 10, 18, df_dam_extended$area2)
+
+#function for preparing the dataframe for graphing for a particular country
+derive_dataframe_for_country <- function(dataframe_non_individual, dataframe_individual, row_to_select,
+                                         rowname_1, rowname_2){
+  df_to_return <- rbind(dataframe_non_individual[row_to_select,], dataframe_individual[row_to_select,])
+  df_to_return <- df_to_return[,2:10]
+  rownames(df_to_return) <- c(rowname_1, rowname_2)
+  colnames(df_to_return) <- c("Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
+                              "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
+  df_to_return <- rbind(rep(5,9) , rep(1,9) , df_to_return)
+  return(df_to_return)
+}
+
+derive_dataframe_for_country(df_know_aut, df_know_ind, 2, "authorities", "respondent")
+
+#function for graphing
+graph_radar <- function(dataframe, title, legend_1, legend_2){
+  graph <- radarchart(dataframe,
+             axistype = 1 ,
+             #customize the polygons
+             pcol = colors_border,
+             #pfcol = , # for filling the polygons
+             pty = 32,
+             plwd = 2,
+             plty = 1,
+             #customize the grid
+             cglcol = "grey",
+             cglty = 1,
+             axislabcol = "grey",
+             caxislabels = seq(1,5,1),
+             cglwd = 0.8,
+             #custom labels
+             vlcex = 0.9,
+             title = title)
+  legend(x = 1.5, y = 1, legend = c(legend_1, legend_2),
+         bty = "n", pch = 20 , col = colors_border, text.width = 2, cex = 0.8, pt.cex = 2)
+}
+
+test_graph <- graph_radar(df_know_swe, "level of knowledge", "authorities","individual")
+
+
+###### function testing ######
+
+df_dam <- derive_necessary_columns(df, df_extended, 15, 32)
+
+df_dam_ind <- aggregate(cbind(dam_ep, dam_fl, dam_dr, dam_wf,
+                              dam_ea, dam_ta, dam_dv, dam_ec, dam_cc) ~ area2,
+                        data = df_dam_extended, mean, na.rm = FALSE) # calculates the mean for each of the variables listed in cbind, per country
+
+# Dataframe for the variable "Impact on others in the country"
+df_dam_oth <- aggregate(cbind(dam_oth_ep, dam_oth_fl, dam_oth_dr, dam_oth_wf,
+                              dam_oth_ea, dam_oth_ta, dam_oth_dv, dam_oth_ec, dam_oth_cc) ~ area2,
+                        data = df_dam_extended, mean, na.rm = TRUE) # calculates the mean for each of the variables listed in cbind, per country
+
+df_dam_ita <- derive_dataframe_for_country(df_dam_ind, df_dam_oth, 1, "authorities", "respondent")
+df_dam_swe <- derive_dataframe_for_country(df_dam_ind, df_dam_oth, 2, "authorities", "respondent")
+df_dam_pol <- derive_dataframe_for_country(df_dam_ind, df_dam_oth, 3, "authorities", "respondent")
+
+graph_radar(df_dam_ita, "level of knowledge", "authorities","individual")
+graph_radar(df_dam_swe, "level of knowledge", "authorities","individual")
+graph_radar(df_dam_pol, "level of knowledge", "authorities","individual")
