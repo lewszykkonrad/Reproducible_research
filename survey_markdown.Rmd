@@ -1,5 +1,5 @@
 ---
-title: "survey_markdown"
+title: "Public perceptions of multiple risks during the COVID-19 pandemic in Italy and Sweden. Reproducing original findings and extending it with data for Poland."
 author: "Mateusz Baryła, Konrad Lewszyk"
 date: "5/20/2022"
 output: 
@@ -9,6 +9,8 @@ output:
     toc_float:
       collapsed: false
       smooth_scroll: true
+bibliography: bibliography.bib
+nocite: '@*'
 ---
 
 ```{r setup, include=FALSE}
@@ -19,7 +21,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-## R Markdown
 
 ```{r package installation and import, include = FALSE, echo = FALSE}
 requiredPackages = c("fmsb", "stats", "tidyverse")
@@ -27,14 +28,11 @@ for(i in requiredPackages){if(!require(i,character.only = TRUE)) install.package
 for(i in requiredPackages){if(!require(i,character.only = TRUE)) library(i,character.only = TRUE) }
 ```
 
-For our Reproducible Research class we decided to extend a survey based research. We chose a 2020 research on public perception on multiple risks during the COVID-19 pandemic in Italy and Sweden. In order to build upon the study, we replicated the survey questions from and gathered X new answers. We sent out the surveys to Polish citizens to extend the findings by another country, and then compare our findings with the findings of the researchers. It is important to remember the researchers conducted their study during the onset of the pandemic, while we completed after the vaccination period and towards the end of the pandemic.
-
-Link to the study: https://www.nature.com/articles/s41597-020-00778-7?fbclid=IwAR1GqAQNW6oCa3gQLC9JEpVaJBAw8SBcc7fobxNX5ybJzwzZvirVxixXVlY
-
-Link to the codes  of the study: https://github.com/elenamondino/nationwide_survey
-
+For our Reproducible Research class we decided to extend a survey based research. We chose a 2020 research on public perception on multiple risks during the COVID-19 pandemic in Italy and Sweden [@Werner2021], [@original_scripts]. In order to build upon the study, we replicated the survey questions from and gathered X new answers. We sent out the surveys to Polish citizens to extend the findings by another country, and then compare our findings with the findings of the researchers. It is important to remember the researchers conducted their study during the onset of the pandemic, while we completed after the vaccination period and towards the end of the pandemic.
 
 # 1. Downloading the data
+
+The survey was performed in August and November 2020. Here, we replicate the results from the paper which means that we focus only on the first wave of the study.
 
 ```{r}
 df <- read.csv("data/Dataset_round1_august2020.csv", header = TRUE, na = "999")
@@ -70,7 +68,7 @@ df_dam <- df[, c(15:32, 85)] # takes only the columns needed for the chart
 only_columns_for_chart <- df_dam %>% names()
 ```
 
-We need to make sure the data we are obtaining from our google forms is compatible with the data format that of the researchers's data.
+We need to make sure the data we are obtaining from our Google Forms is compatible with the data format that of the researchers's data.
 
 ```{r Preprocessing and cleaning the data}
 df_new <- read.csv("data/survey.csv", header = TRUE, na = "999")
@@ -151,13 +149,20 @@ df_new_final <- df_new_all_cols_int_mapped %>%
 df_extended <- bind_rows(df_research, df_new_final)
 ```
 
-# 1. Functions
+# 2. Functions
 
 #### Functions {.tabset .tabset-pills}
 Defining functions for data preparation and graphing
 
 ##### Specific column selection function
 ```{r}
+#' Returns tibble with only necessary columns for aggregation.
+#'
+#' @param dataframe_to_derive_column_names A tibble based on which the necessary columns will be derived.
+#' @param dataframe_to_modify A tibble that will be used for subsetting.
+#' @param start index of the first column
+#' @param end index of the last column
+#' @return tibble only with columns between start and end indexes and an area column
 derive_necessary_columns <- function(dataframe_to_derive_column_names, dataframe_to_modify, start, end){
   only_columns_for_chart <- dataframe_to_derive_column_names[,c(start:end, 85)] %>% names()
   
@@ -169,6 +174,13 @@ derive_necessary_columns <- function(dataframe_to_derive_column_names, dataframe
 ##### Data aggregation function
 
 ```{r}
+#' Returns tibble aggregated by the chosen variable.
+#'
+#' @param dataset A tibble based on which the necessary columns will be derived.
+#' @param start index of the first column
+#' @param end index of the last column
+#' @param aggregating_variable the grouping column
+#' @return aggregated tibble
 aggregate_method <- function(dataset, start, end, aggregating_variable){
   return(aggregate(dataset[,start:end], by = list(aggregating_variable),
                    FUN = mean, na.rm = TRUE))
@@ -178,6 +190,15 @@ aggregate_method <- function(dataset, start, end, aggregating_variable){
 
 ##### Specific country data preparation function
 ```{r}
+#' Returns complete dataframe for a country, with the structure that is required by
+#' by radarchart function from fmsb library.
+#'
+#' @param dataframe_1 First dataframe
+#' @param dataframe_2 index of the first column
+#' @param row_to_select index of the row to select from the final DataFrame
+#' @param rowname_1 name of the first rowname
+#' @param rowname_2 name of the second rowname
+#' @return dataframe for the country
 derive_dataframe_for_country <- function(dataframe_1, dataframe_2, row_to_select,
                                          rowname_1, rowname_2){
   colnames(dataframe_1) <- c("area", "Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
@@ -187,9 +208,7 @@ derive_dataframe_for_country <- function(dataframe_1, dataframe_2, row_to_select
   df_to_return <- rbind(dataframe_1[row_to_select,], dataframe_2[row_to_select,])
   df_to_return <- df_to_return[,2:10]
   rownames(df_to_return) <- c(rowname_1, rowname_2)
-  # colnames(df_to_return) <- c("area","Epidemics", "Floods", "Drought", "Wildfires", "Earthquakes",
-  #                           "Terror attacks", "Domestic violence", "Economic crises", "Climate Change")
-  df_to_return <- rbind(rep(5,9) , rep(1,9) , df_to_return)
+  df_to_return <- rbind(rep(5,9) , rep(1,9) , df_to_return) #needed for creating radarchart successfully
   return(df_to_return)
 }
 ```
@@ -197,6 +216,14 @@ derive_dataframe_for_country <- function(dataframe_1, dataframe_2, row_to_select
 
 ##### Graphing function
 ```{r}
+#' Plots the radarchart based on the provided DataFrame, with the given title,
+#' The labels in the legend correspond to legend_1 and legend_2.
+#'
+#' @param dataframe dataframe that is required by radarchart function from fmsb library.
+#' @param title title to put on the chart
+#' @param legend_1 legend for the first froup
+#' @param legend_2 legend for the second group
+#' @return dataframe for the country
 graph_radar <- function(dataframe, title, legend_1, legend_2){
   graph <- radarchart(dataframe,
              axistype = 1 ,
@@ -222,7 +249,10 @@ graph_radar <- function(dataframe, title, legend_1, legend_2){
 
 #### {-}
 
-# 2. Data preparation for graphing 
+# 3. Data preparation for graphing
+
+Based on the functions provided before we prepare all the DataFrames by applying simple commands.
+As in the original research there will be three figures, for three dimensions presented below.
 
 ####  {.tabset .tabset-pills}
 
@@ -265,7 +295,9 @@ df_know_pol <- derive_dataframe_for_country( df_know_ind,df_know_aut, 3, "author
 
 #### {-}
 
-# 3. Graphing risk perception by country
+# 4. Graphing risk perception by country
+
+The original findings are repeated for Italy and Sweden. We extend the research with responses from Poland.
 
 ####  Damage {.tabset .tabset-pills}
 
@@ -333,6 +365,7 @@ graph_radar(df_know_pol, "level of knowledge",
 
 #### {-}
 
+# Bibliography
 
 
 
