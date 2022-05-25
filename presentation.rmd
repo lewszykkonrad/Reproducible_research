@@ -3,10 +3,10 @@ title: Public perceptions of multiple risks during the COVID-19 pandemic in Ital
   and Sweden. Reproducing original findings and extending it with data for Poland.
 author: "Mateusz Baryła, Konrad Lewszyk"
 date: "May 26, 2022"
+header-includes:
+- \usepackage{booktabs}
 output:
-  slidy_presentation: 
-    fig_width: 1
-    fig_height: 1
+  slidy_presentation: default
   beamer_presentation: default
 ---
 
@@ -56,16 +56,22 @@ knitr::include_graphics("pictures_for_presentation/survey_image_1.jpg")
 
 # Original data
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.show = 'hide'}
+```{r, results = "asis", echo = FALSE, message = FALSE, warning = FALSE, fig.show = 'hide'}
 df <- read.csv("data/Dataset_round1_august2020.csv", header = TRUE, na = "999")
-df %>% head()
+df %>%
+        head() %>%
+        knitr::kable(format = "markdown", booktabs = T) %>%
+        kableExtra::kable_styling(font_size = 7)
 ```
 
 # Gathered data
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.show = 'hide'}
 df_new <- read.csv("data/survey.csv", header = TRUE, na = "999")
-df_new %>% head()
+df_new %>%
+        head() %>%
+        knitr::kable(format = "markdown", booktabs = T) %>%
+        kableExtra::kable_paper(font_size = 7)
 ```
 
 # Steps to preprocess
@@ -88,9 +94,11 @@ rec1 -> rec2 -> rec3 -> rec4
 </center>
 
 # Full reproducibility
-groundhog library
-GitHub
-Google Drive
+
+1. groundhog library for reproducible environment
+2. GitHub for working on code (we created issue and PR, as well as merge to master branch)
+3. Google Drive for storing data (we know that storing data on public repository is not a good practice)
+4.
 
 # Results
 
