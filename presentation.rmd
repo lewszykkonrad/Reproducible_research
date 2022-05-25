@@ -8,11 +8,26 @@ output:
   beamer_presentation: default
 ---
 
+
 # Agenda
+
+1. Searching for the right study
+2. The original research 
+3. Survey replication
+4. Transforming the data
+5. Coding
+6. Results
+
+# Searching for the study
+
 
 # Original Study
 
+
+
 # Extended study
+
+
 
 # Results
 

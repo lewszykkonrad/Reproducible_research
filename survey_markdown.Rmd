@@ -32,7 +32,7 @@ groundhog.library(pkgs,
                   tolerate.R.version='4.1.1')
 ```
 
-For our Reproducible Research class we decided to extend a survey based research. We chose a 2020 research on public perception on multiple risks during the COVID-19 pandemic in Italy and Sweden [@Werner2021], [@original_scripts]. In order to build upon the study, we replicated the survey questions from and gathered X new answers. We sent out the surveys to Polish citizens to extend the findings by another country, and then compare our findings with the findings of the researchers. It is important to remember the researchers conducted their study during the onset of the pandemic, while we completed after the vaccination period and towards the end of the pandemic.
+For our Reproducible Research class we decided to extend a survey based research. We chose a 2020 research on public perception on multiple risks during the COVID-19 pandemic in Italy and Sweden [@Werner2021], [@original_scripts]. In order to build upon the study, we replicated the survey questions from and gathered X new answers. We sent out the surveys to Polish citizens to extend the findings by another country, and then compare our findings with the findings of the researchers. It is important to remember the researchers conducted their study during the onset of the pandemic, while we reproduced and extended the research after the vaccination period and towards the end of the pandemic.
 
 # 1. Downloading the data
 
@@ -76,7 +76,7 @@ We need to make sure the data we are obtaining from our Google Forms is compatib
 
 ```{r Preprocessing and cleaning the data}
 df_new <- read.csv("data/survey.csv", header = TRUE, na = "999")
-not_needed_columns <- c("Sygnatura.czasowa")
+not_needed_columns <- c("Timestamp")
 df_new <- df_new %>% select(-not_needed_columns)
 
 mapping_tibble <- readxl ::read_excel("data\\mapping_tibble.xlsx")
