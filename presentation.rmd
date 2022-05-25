@@ -10,7 +10,10 @@ output:
   beamer_presentation: default
 ---
 
-
+```{r, echo = FALSE, results = 'hide', message = FALSE, warning = FALSE, fig.show = 'hide'}
+library(dplyr)
+library(DiagrammeR)
+```
 # Agenda
 
 1. Searching for the right study
@@ -21,7 +24,6 @@ output:
 6. Results
 
 # Searching for the study
-
 
 # Original Study
 
@@ -50,10 +52,45 @@ knitr::include_graphics("pictures_for_presentation/picture_4.jpg")
 knitr::include_graphics("pictures_for_presentation/survey_image_1.jpg")
 ```
 
-
 # Extended study
 
+# Original data
 
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.show = 'hide'}
+df <- read.csv("data/Dataset_round1_august2020.csv", header = TRUE, na = "999")
+df %>% head()
+```
+
+# Gathered data
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.show = 'hide'}
+df_new <- read.csv("data/survey.csv", header = TRUE, na = "999")
+df_new %>% head()
+```
+
+# Steps to preprocess
+<center>
+```{r echo = FALSE,  message = FALSE, warning = FALSE, fig.show = 'hide', fig.align='center'}
+grViz("digraph {
+graph [layout = dot, rankdir = TB]
+
+node [shape = rectangle]
+rec1 [label = 'Step 1. Creating mapping tibble between original column names and collected ones']
+rec2 [label = 'Step 2. Splitting the data depending on scale (Likert, dichotomous, numeric']
+rec3 [label =  'Step 3. For each datarame we do a conversion between original values mainly with pivoting.']
+rec4 [label = 'Step 4. Joining the DataFrames into one, final one.']
+
+# edge definitions with the node IDs
+rec1 -> rec2 -> rec3 -> rec4
+}",
+                  height = 300)
+```
+</center>
+
+# Full reproducibility
+groundhog library
+GitHub
+Google Drive
 
 # Results
 
