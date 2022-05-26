@@ -20,7 +20,7 @@ library(DiagrammeR)
 1. Searching for the right study
 2. The original study 
 3. Survey replication
-4. Transforming the data
+4. Steps to preprocess
 5. Coding
 6. Results
 
@@ -53,6 +53,7 @@ Link to our survey: https://docs.google.com/forms/d/e/1FAIpQLSeN__k2KDdbRZIkhZ3u
 
 
 # Extended study
+
 
 # Original data
 
@@ -95,7 +96,7 @@ rec1 -> rec2 -> rec3 -> rec4
 
 # Full reproducibility
 
-1. groundhog library for reproducible environment
+1. Groundhog library for reproducible environment
 2. GitHub for working on code (we created issue and PR, as well as merge to master branch)
 3. Google Drive for storing data (we know that storing data on public repository is not a good practice)
 4.

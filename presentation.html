@@ -1624,7 +1624,7 @@ Mateusz Baryła, Konrad Lewszyk
 <li>Searching for the right study</li>
 <li>The original study</li>
 <li>Survey replication</li>
-<li>Transforming the data</li>
+<li>Steps to preprocess</li>
 <li>Coding</li>
 <li>Results</li>
 </ol>
@@ -1651,381 +1651,1132 @@ Mateusz Baryła, Konrad Lewszyk
 </div>
 <div id="original-data" class="slide section level1">
 <h1>Original data</h1>
-<pre><code>##   INTNR gender age MUN_ITA NUTS2 V9_1 V9_2 V9_3 V9_4 V9_5 V9_6 V9_7 V9_8 V9_9
-## 1   400      2  56      16    NA    3    4    4    3    4    4    3    3    4
-## 2   688      1  42      19    NA    4    4    4    3    2    1    3    2    4
-## 3  1237      1  57      19    NA    1    1    1    2    4    2    1    4    4
-## 4   989      2  50      16    NA    3    2    2    3    4    2    1    5    5
-## 5  1078      1  30      15    NA    3    3    3    3    3    3    3    3    3
-## 6  1522      1  38      15    NA    3    1    1    3    4    3    1    3    3
-##   V19_1 V19_2 V19_3 V19_4 V19_5 V19_6 V19_7 V19_8 V19_9 V29_1 V29_2 V29_3 V29_4
-## 1     4     4     4     3     4     4     5     4     3     3     2     4     4
-## 2     2     4     3     2     3     2     4     5     2     5     5     3     2
-## 3     3     2     4     3     5     4     4     5     4     3     3     3     3
-## 4     4     5     5     5     5     5     5     5     5     4     5     5     5
-## 5     3     3     3     3     3     3     3     3     3     3     3     3     3
-## 6     3     4     3     5     5     3     1     4     3     2     3     3     3
-##   V29_5 V29_6 V29_7 V29_8 V29_9 V49_1 V49_2 V49_3 V49_4 V49_5 V49_6 V49_7 V49_8
-## 1     5     4     5     4     3     5     4     4     3     4     4     3     3
-## 2     3     5     3     2     5    NA     2     1     4     3     4     3     3
-## 3     2     3     4     3     5     4     3     3     3     3     3     3     5
-## 4     5     5     5     5     5     4     4     4     4     4     4     3     3
-## 5     3     3     3     3     3     3     4     3     3     4     3     2     3
-## 6     3     3     3     3     3     3     3     3     3     3     3     3     3
-##   V49_9 V39_1 V39_2 V39_3 V39_4 V39_5 V39_6 V39_7 V39_8 V39_9 V69_1 V69_2 V69_3
-## 1     4     5     4     3     5     5     4     4     3     3     4     3     4
-## 2     2     5     3     2     4     2     5     2     2     4     1     2     3
-## 3     4     2     3     3     3     2     1     2     1     1     2     3     3
-## 4     4     4     3     3     3     3     2     1     3     3     4     4     4
-## 5     4     3     4     3     4     3     4     3     4     3     3     3     4
-## 6     3     3     3     3     3     3     3     3     3     3     3     3     3
-##   V69_4 V69_5 V69_6 V69_7 V69_8 V69_9 V59_1 V59_2 V59_3 V59_4 V59_5 V59_6 V59_7
-## 1     5     2     3     4     4     4     5     4     3     4     4     4     5
-## 2     4     4     4     2     4     5     5     3     3     2     4     4     3
-## 3     3     4     4     2     4     4     4     2     3     3     2     2     1
-## 4     4     4     4     3     4     4     4     4     4     4     4     4     4
-## 5     3     4     3     4     3     4     4     4     4     3     4     3     4
-## 6     3     3     3     3     3     3     4     3     3     4     3     4     2
-##   V59_8 V59_9 V79_1 V79_2 V79_3 V79_4 V79_5 V79_6 V79_7 V79_8 V79_9 V90 V100
-## 1     4     4     2     1     1     2     2    NA     2     2    NA 997    4
-## 2     1    NA     1     2     1     2    NA     1     1     1     2 997    3
-## 3     4     2     2     2     2     2     2     2     2     2     2 997    3
-## 4     3     4     1     1     2     1     1     2     2     1     1   3    1
-## 5     3     4     2     2     2     2     2     2     2     2     2 997    3
-## 6     3     4     2     2     2     2     2     2     2     2     2   4    5
-##   V110 V120 V130  vikt kvotgrupp2
-## 1    1   15    3 0.931          1
-## 2    1    1    3 0.772          1
-## 3    1    8    4 0.936          1
-## 4    2   NA    4 0.931          1
-## 5    2   NA    2 0.736          1
-## 6    1    1    2 0.736          1</code></pre>
+<table style="width:100%;">
+<colgroup>
+<col width="1%" />
+<col width="1%" />
+<col width="0%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="0%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="2%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">INTNR</th>
+<th align="right">gender</th>
+<th align="right">age</th>
+<th align="right">MUN_ITA</th>
+<th align="right">NUTS2</th>
+<th align="right">V9_1</th>
+<th align="right">V9_2</th>
+<th align="right">V9_3</th>
+<th align="right">V9_4</th>
+<th align="right">V9_5</th>
+<th align="right">V9_6</th>
+<th align="right">V9_7</th>
+<th align="right">V9_8</th>
+<th align="right">V9_9</th>
+<th align="right">V19_1</th>
+<th align="right">V19_2</th>
+<th align="right">V19_3</th>
+<th align="right">V19_4</th>
+<th align="right">V19_5</th>
+<th align="right">V19_6</th>
+<th align="right">V19_7</th>
+<th align="right">V19_8</th>
+<th align="right">V19_9</th>
+<th align="right">V29_1</th>
+<th align="right">V29_2</th>
+<th align="right">V29_3</th>
+<th align="right">V29_4</th>
+<th align="right">V29_5</th>
+<th align="right">V29_6</th>
+<th align="right">V29_7</th>
+<th align="right">V29_8</th>
+<th align="right">V29_9</th>
+<th align="right">V49_1</th>
+<th align="right">V49_2</th>
+<th align="right">V49_3</th>
+<th align="right">V49_4</th>
+<th align="right">V49_5</th>
+<th align="right">V49_6</th>
+<th align="right">V49_7</th>
+<th align="right">V49_8</th>
+<th align="right">V49_9</th>
+<th align="right">V39_1</th>
+<th align="right">V39_2</th>
+<th align="right">V39_3</th>
+<th align="right">V39_4</th>
+<th align="right">V39_5</th>
+<th align="right">V39_6</th>
+<th align="right">V39_7</th>
+<th align="right">V39_8</th>
+<th align="right">V39_9</th>
+<th align="right">V69_1</th>
+<th align="right">V69_2</th>
+<th align="right">V69_3</th>
+<th align="right">V69_4</th>
+<th align="right">V69_5</th>
+<th align="right">V69_6</th>
+<th align="right">V69_7</th>
+<th align="right">V69_8</th>
+<th align="right">V69_9</th>
+<th align="right">V59_1</th>
+<th align="right">V59_2</th>
+<th align="right">V59_3</th>
+<th align="right">V59_4</th>
+<th align="right">V59_5</th>
+<th align="right">V59_6</th>
+<th align="right">V59_7</th>
+<th align="right">V59_8</th>
+<th align="right">V59_9</th>
+<th align="right">V79_1</th>
+<th align="right">V79_2</th>
+<th align="right">V79_3</th>
+<th align="right">V79_4</th>
+<th align="right">V79_5</th>
+<th align="right">V79_6</th>
+<th align="right">V79_7</th>
+<th align="right">V79_8</th>
+<th align="right">V79_9</th>
+<th align="right">V90</th>
+<th align="right">V100</th>
+<th align="right">V110</th>
+<th align="right">V120</th>
+<th align="right">V130</th>
+<th align="right">vikt</th>
+<th align="right">kvotgrupp2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">400</td>
+<td align="right">2</td>
+<td align="right">56</td>
+<td align="right">16</td>
+<td align="right">NA</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">997</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">15</td>
+<td align="right">3</td>
+<td align="right">0.931</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">688</td>
+<td align="right">1</td>
+<td align="right">42</td>
+<td align="right">19</td>
+<td align="right">NA</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">997</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">0.772</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1237</td>
+<td align="right">1</td>
+<td align="right">57</td>
+<td align="right">19</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">997</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">0.936</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">989</td>
+<td align="right">2</td>
+<td align="right">50</td>
+<td align="right">16</td>
+<td align="right">NA</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">4</td>
+<td align="right">0.931</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1078</td>
+<td align="right">1</td>
+<td align="right">30</td>
+<td align="right">15</td>
+<td align="right">NA</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">997</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="right">0.736</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1522</td>
+<td align="right">1</td>
+<td align="right">38</td>
+<td align="right">15</td>
+<td align="right">NA</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0.736</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="gathered-data" class="slide section level1">
 <h1>Gathered data</h1>
-<pre><code>##                     Timestamp
-## 1 2022/05/14 6:33:48 PM GMT+2
-## 2 2022/05/18 4:13:26 PM GMT+2
-## 3 2022/05/18 5:37:35 PM GMT+2
-##   X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena...Epidemics.
-## 1                                                                                            5 Very likely
-## 2                                                                                            5 Very likely
-## 3                                                                                                        4
-##   X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena...Floods.
-## 1                                                                                         5 Very likely
-## 2                                                                                                     3
-## 3                                                                                  1. Not likely at all
-##   X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena...Droughts.
-## 1                                                                                                       4
-## 2                                                                                                       2
-## 3                                                                                                       3
-##   X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena...Wildfires.
-## 1                                                                                                        4
-## 2                                                                                     1. Not likely at all
-## 3                                                                                     1. Not likely at all
-##   X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena...Earthquakes.
-## 1                                                                                                          4
-## 2                                                                                       1. Not likely at all
-## 3                                                                                       1. Not likely at all
-##   X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena...Terror.attacks.
-## 1                                                                                                             4
-## 2                                                                                                 5 Very likely
-## 3                                                                                          1. Not likely at all
-##   X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena...Domestic.violence.
-## 1                                                                                                    5 Very likely
-## 2                                                                                                                3
-## 3                                                                                             1. Not likely at all
-##   X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena...Economic.crises.
-## 1                                                                                                  5 Very likely
-## 2                                                                                                  5 Very likely
-## 3                                                                                           1. Not likely at all
-##   X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena...Climate.change.
-## 1                                                                                                 5 Very likely
-## 2                                                                                                             4
-## 3                                                                                                             2
-##   X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you...Epidemics.
-## 1                                                                                                          5. Severe damage
-## 2                                                                                                          5. Severe damage
-## 3                                                                                                                         3
-##   X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you...Floods.
-## 1                                                                                                       5. Severe damage
-## 2                                                                                                                      3
-## 3                                                                                                           I don&#39;t know
-##   X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you...Droughts.
-## 1                                                                                                                        4
-## 2                                                                                                                        3
-## 3                                                                                                                        2
-##   X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you...Wildfires.
-## 1                                                                                                                         3
-## 2                                                                                                                         2
-## 3                                                                                                              I don&#39;t know
-##   X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you...Earthquakes.
-## 1                                                                                                                           2
-## 2                                                                                                                1. No damage
-## 3                                                                                                                I don&#39;t know
-##   X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you...Terror.attacks.
-## 1                                                                                                                              3
-## 2                                                                                                               5. Severe damage
-## 3                                                                                                                   I don&#39;t know
-##   X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you...Domestic.violence.
-## 1                                                                                                                                 4
-## 2                                                                                                                  5. Severe damage
-## 3                                                                                                                      I don&#39;t know
-##   X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you...Economic.crises.
-## 1                                                                                                                5. Severe damage
-## 2                                                                                                                5. Severe damage
-## 3                                                                                                                    I don&#39;t know
-##   X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you...Climate.change.
-## 1                                                                                                                              4
-## 2                                                                                                               5. Severe damage
-## 3                                                                                                                              3
-##   X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland...Epidemics.
-## 1                                                                                                                         5. Severe damage
-## 2                                                                                                                                        4
-## 3                                                                                                                                        3
-##   X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland...Floods.
-## 1                                                                                                                      5. Severe damage
-## 2                                                                                                                                     4
-## 3                                                                                                                                     3
-##   X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland...Droughts.
-## 1                                                                                                                                       4
-## 2                                                                                                                                       3
-## 3                                                                                                                                       2
-##   X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland...Wildfires.
-## 1                                                                                                                         5. Severe damage
-## 2                                                                                                                                        4
-## 3                                                                                                                             1. No damage
-##   X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland...Earthquakes.
-## 1                                                                                                                                          4
-## 2                                                                                                                                          4
-## 3                                                                                                                               1. No damage
-##   X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland...Terror.attacks.
-## 1                                                                                                                                             4
-## 2                                                                                                                                             2
-## 3                                                                                                                                             2
-##   X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland...Domestic.violence.
-## 1                                                                                                                                 5. Severe damage
-## 2                                                                                                                                                2
-## 3                                                                                                                                                3
-##   X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland...Economic.crises.
-## 1                                                                                                                                              4
-## 2                                                                                                                               5. Severe damage
-## 3                                                                                                                                              4
-##   X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland...Climate.change.
-## 1                                                                                                                                             4
-## 2                                                                                                                              5. Severe damage
-## 3                                                                                                                                             3
-##   X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena...Epidemics.
-## 1                                                                                                   5. Highly prepared
-## 2                                                                                                                    4
-## 3                                                                                                                    3
-##   X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena...Floods.
-## 1                                                                                                5. Highly prepared
-## 2                                                                                                                 2
-## 3                                                                                                                 2
-##   X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena...Droughts.
-## 1                                                                                                                   4
-## 2                                                                                              1. Not at all prepared
-## 3                                                                                                                   2
-##   X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena...Wildfires.
-## 1                                                                                                                    3
-## 2                                                                                               1. Not at all prepared
-## 3                                                                                               1. Not at all prepared
-##   X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena...Earthquakes.
-## 1                                                                                                                      3
-## 2                                                                                                 1. Not at all prepared
-## 3                                                                                                 1. Not at all prepared
-##   X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena...Terror.attacks.
-## 1                                                                                                                         2
-## 2                                                                                                        5. Highly prepared
-## 3                                                                                                    1. Not at all prepared
-##   X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena...Domestic.violence.
-## 1                                                                                                                            2
-## 2                                                                                                           5. Highly prepared
-## 3                                                                                                       1. Not at all prepared
-##   X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena...Economic.crises.
-## 1                                                                                                                          2
-## 2                                                                                                                          4
-## 3                                                                                                     1. Not at all prepared
-##   X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena...Climate.change.
-## 1                                                                                                                         3
-## 2                                                                                                                         3
-## 3                                                                                                                         2
-##   X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena...Epidemics.
-## 1                                                                                                    5. Highly prepared
-## 2                                                                                                    5. Highly prepared
-## 3                                                                                                                     3
-##   X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena...Floods.
-## 1                                                                                                                  4
-## 2                                                                                                                  3
-## 3                                                                                                       I don&#39;t know
-##   X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena...Droughts.
-## 1                                                                                                   5. Highly prepared
-## 2                                                                                                                    3
-## 3                                                                                                                    2
-##   X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena...Wildfires.
-## 1                                                                                                                     3
-## 2                                                                                                                     3
-## 3                                                                                                          I don&#39;t know
-##   X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena...Earthquakes.
-## 1                                                                                                                       3
-## 2                                                                                                                       3
-## 3                                                                                                            I don&#39;t know
-##   X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena...Terror.attacks.
-## 1                                                                                                                          4
-## 2                                                                                                     1. Not at all prepared
-## 3                                                                                                               I don&#39;t know
-##   X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena...Domestic.violence.
-## 1                                                                                                                             4
-## 2                                                                                                                             3
-## 3                                                                                                                  I don&#39;t know
-##   X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena...Economic.crises.
-## 1                                                                                                                           3
-## 2                                                                                                                           4
-## 3                                                                                                                           3
-##   X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena...Climate.change.
-## 1                                                                                                                          2
-## 2                                                                                                                          3
-## 3                                                                                                                          2
-##   X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena...Epidemics.
-## 1                                                                                                       3
-## 2                                                                                 5. Highly knowledgeable
-## 3                                                                                                       3
-##   X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena...Floods.
-## 1                                                                                                    4
-## 2                                                                                                    4
-## 3                                                                                                    2
-##   X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena...Droughts.
-## 1                                                                                                      3
-## 2                                                                                                      2
-## 3                                                                                                      2
-##   X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena...Wildfires.
-## 1                                                                                                       4
-## 2                                                                             1. Not at all knowledgeable
-## 3                                                                             1. Not at all knowledgeable
-##   X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena...Earthquakes.
-## 1                                                                                                         3
-## 2                                                                                                         2
-## 3                                                                               1. Not at all knowledgeable
-##   X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena...Terror.attacks.
-## 1                                                                                                            2
-## 2                                                                                                            4
-## 3                                                                                  1. Not at all knowledgeable
-##   X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena...Domestic.violence.
-## 1                                                                                                               4
-## 2                                                                                                               4
-## 3                                                                                                               2
-##   X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena...Economic.crises.
-## 1                                                                                                             3
-## 2                                                                                                             3
-## 3                                                                                                             2
-##   X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena...Climate.change.
-## 1                                                                                                            3
-## 2                                                                                      5. Highly knowledgeable
-## 3                                                                                                            2
-##   X7..How.knowledgeable.are.you.on.the.following.phenomena...Epidemics.
-## 1                                               5. Highly knowledgeable
-## 2                                               5. Highly knowledgeable
-## 3                                                                     3
-##   X7..How.knowledgeable.are.you.on.the.following.phenomena...Floods.
-## 1                                                                  4
-## 2                                                                  3
-## 3                                                                  2
-##   X7..How.knowledgeable.are.you.on.the.following.phenomena...Droughts.
-## 1                                                                    3
-## 2                                                                    3
-## 3                                                                    2
-##   X7..How.knowledgeable.are.you.on.the.following.phenomena...Wildfires.
-## 1                                                                     4
-## 2                                                                     2
-## 3                                                                     2
-##   X7..How.knowledgeable.are.you.on.the.following.phenomena...Earthquakes.
-## 1                                                 5. Highly knowledgeable
-## 2                                                                       2
-## 3                                                                       2
-##   X7..How.knowledgeable.are.you.on.the.following.phenomena...Terror.attacks.
-## 1                                                    5. Highly knowledgeable
-## 2                                                                          2
-## 3                                                                          2
-##   X7..How.knowledgeable.are.you.on.the.following.phenomena...Domestic.violence.
-## 1                                                                             4
-## 2                                                                             2
-## 3                                                                             2
-##   X7..How.knowledgeable.are.you.on.the.following.phenomena...Economic.crises.
-## 1                                                     5. Highly knowledgeable
-## 2                                                     5. Highly knowledgeable
-## 3                                                                           4
-##   X7..How.knowledgeable.are.you.on.the.following.phenomena...Climate.change.
-## 1                                                                          4
-## 2                                                                          3
-## 3                                                                          4
-##   X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad...Epidemics.
-## 1                                                                                                   yes
-## 2                                                                                                   yes
-## 3                                                                                                   Yes
-##   X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad...Floods.
-## 1                                                                                                yes
-## 2                                                                                                yes
-## 3                                                                                                 No
-##   X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad...Droughts.
-## 1                                                                                                   no
-## 2                                                                                                   no
-## 3                                                                                                  Yes
-##   X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad...Wildfires.
-## 1                                                                                                    no
-## 2                                                                                                    no
-## 3                                                                                                   Yes
-##   X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad...Earthquakes.
-## 1                                                                                                     yes
-## 2                                                                                                      no
-## 3                                                                                                     Yes
-##   X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad...Terror.attacks.
-## 1                                                                                                        yes
-## 2                                                                                                        yes
-## 3                                                                                                         No
-##   X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad...Domestic.violence.
-## 1                                                                                                           yes
-## 2                                                                                                            no
-## 3                                                                                                            No
-##   X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad...Economic.crises.
-## 1                                                                                                         yes
-## 2                                                                                                         yes
-## 3                                                                                                         Yes
-##   X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad...Climate.change.
-## 1                                                                                                         no
-## 2                                                                                                         no
-## 3                                                                                                        Yes
-##   X9..What.is.the.highest.level.of.education.you.achieved.
-## 1                              University degree or higher
-## 2                              University degree or higher
-## 3                              University degree or higher
-##   X10..To.satisfy.your.family.needs..your.household.income.is.
-## 1                                                            4
-## 2                                                            4
-## 3                                                            5
-##   X11..Do.you.have.a.job.
-## 1                     Yes
-## 2                     Yes
-## 3                      No
-##   X12..Which.of.the.following.categories.best.represent.the.sector.in.which.you.are.employed.
-## 1                                                                     IT &amp; telecommunications
-## 2                                                                     IT &amp; telecommunications
-## 3                                                                     IT &amp; telecommunications
-##   What.is.your.gender. What.is.your.age.
-## 1                 Male                18
-## 2                 Male                25
-## 3                 Male                26</code></pre>
+<table style="width:100%;">
+<colgroup>
+<col width="0%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="0%" />
+<col width="0%" />
+<col width="0%" />
+<col width="0%" />
+<col width="0%" />
+<col width="0%" />
+<col width="0%" />
+<col width="0%" />
+<col width="0%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="0%" />
+<col width="0%" />
+<col width="0%" />
+<col width="1%" />
+<col width="0%" />
+<col width="0%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Timestamp</th>
+<th align="left">X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena…Epidemics.</th>
+<th align="left">X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena…Floods.</th>
+<th align="right">X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena…Droughts.</th>
+<th align="left">X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena…Wildfires.</th>
+<th align="left">X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena…Earthquakes.</th>
+<th align="left">X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena…Terror.attacks.</th>
+<th align="left">X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena…Domestic.violence.</th>
+<th align="left">X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena…Economic.crises.</th>
+<th align="left">X1..How.likely.do.you.think.it.is.that.you.are.directly.involved.in.the.following.phenomena…Climate.change.</th>
+<th align="left">X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you…Epidemics.</th>
+<th align="left">X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you…Floods.</th>
+<th align="right">X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you…Droughts.</th>
+<th align="left">X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you…Wildfires.</th>
+<th align="left">X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you…Earthquakes.</th>
+<th align="left">X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you…Terror.attacks.</th>
+<th align="left">X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you…Domestic.violence.</th>
+<th align="left">X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you…Economic.crises.</th>
+<th align="left">X2..In.case.you.are.directly.involved..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.you…Climate.change.</th>
+<th align="left">X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland…Epidemics.</th>
+<th align="left">X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland…Floods.</th>
+<th align="right">X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland…Droughts.</th>
+<th align="left">X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland…Wildfires.</th>
+<th align="left">X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland…Earthquakes.</th>
+<th align="right">X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland…Terror.attacks.</th>
+<th align="left">X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland…Domestic.violence.</th>
+<th align="left">X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland…Economic.crises.</th>
+<th align="left">X3..In.case.they.occur.in.Poland..how.much.damage.do.you.think.the.following.phenomena.can.cause.to.others.living.in.Poland…Climate.change.</th>
+<th align="left">X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena…Epidemics.</th>
+<th align="left">X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena…Floods.</th>
+<th align="left">X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena…Droughts.</th>
+<th align="left">X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena…Wildfires.</th>
+<th align="left">X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena…Earthquakes.</th>
+<th align="left">X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena…Terror.attacks.</th>
+<th align="left">X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena…Domestic.violence.</th>
+<th align="left">X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena…Economic.crises.</th>
+<th align="right">X4..How.prepared.do.you.think.the.responsible.authorities.in.Poland.are.to.face.the.following.phenomena…Climate.change.</th>
+<th align="left">X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena…Epidemics.</th>
+<th align="left">X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena…Floods.</th>
+<th align="left">X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena…Droughts.</th>
+<th align="left">X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena…Wildfires.</th>
+<th align="left">X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena…Earthquakes.</th>
+<th align="left">X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena…Terror.attacks.</th>
+<th align="left">X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena…Domestic.violence.</th>
+<th align="right">X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena…Economic.crises.</th>
+<th align="right">X5..In.case.you.are.directly.involved..how.prepared.do.you.think.you.are.to.face.the.following.phenomena…Climate.change.</th>
+<th align="left">X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena…Epidemics.</th>
+<th align="right">X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena…Floods.</th>
+<th align="right">X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena…Droughts.</th>
+<th align="left">X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena…Wildfires.</th>
+<th align="left">X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena…Earthquakes.</th>
+<th align="left">X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena…Terror.attacks.</th>
+<th align="right">X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena…Domestic.violence.</th>
+<th align="right">X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena…Economic.crises.</th>
+<th align="left">X6..How.knowledgeable.are.the.responsible.authorities.in.Poland.on.the.following.phenomena…Climate.change.</th>
+<th align="left">X7..How.knowledgeable.are.you.on.the.following.phenomena…Epidemics.</th>
+<th align="right">X7..How.knowledgeable.are.you.on.the.following.phenomena…Floods.</th>
+<th align="right">X7..How.knowledgeable.are.you.on.the.following.phenomena…Droughts.</th>
+<th align="right">X7..How.knowledgeable.are.you.on.the.following.phenomena…Wildfires.</th>
+<th align="left">X7..How.knowledgeable.are.you.on.the.following.phenomena…Earthquakes.</th>
+<th align="left">X7..How.knowledgeable.are.you.on.the.following.phenomena…Terror.attacks.</th>
+<th align="right">X7..How.knowledgeable.are.you.on.the.following.phenomena…Domestic.violence.</th>
+<th align="left">X7..How.knowledgeable.are.you.on.the.following.phenomena…Economic.crises.</th>
+<th align="right">X7..How.knowledgeable.are.you.on.the.following.phenomena…Climate.change.</th>
+<th align="left">X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad…Epidemics.</th>
+<th align="left">X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad…Floods.</th>
+<th align="left">X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad…Droughts.</th>
+<th align="left">X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad…Wildfires.</th>
+<th align="left">X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad…Earthquakes.</th>
+<th align="left">X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad…Terror.attacks.</th>
+<th align="left">X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad…Domestic.violence.</th>
+<th align="left">X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad…Economic.crises.</th>
+<th align="left">X8..Have.you.ever.been.directly.involved.in.the.following.phenomena..in.Poland.or.abroad…Climate.change.</th>
+<th align="left">X9..What.is.the.highest.level.of.education.you.achieved.</th>
+<th align="right">X10..To.satisfy.your.family.needs..your.household.income.is.</th>
+<th align="left">X11..Do.you.have.a.job.</th>
+<th align="left">X12..Which.of.the.following.categories.best.represent.the.sector.in.which.you.are.employed.</th>
+<th align="left">What.is.your.gender.</th>
+<th align="right">What.is.your.age.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2022/05/14 6:33:48 PM GMT+2</td>
+<td align="left">5 Very likely</td>
+<td align="left">5 Very likely</td>
+<td align="right">4</td>
+<td align="left">4</td>
+<td align="left">4</td>
+<td align="left">4</td>
+<td align="left">5 Very likely</td>
+<td align="left">5 Very likely</td>
+<td align="left">5 Very likely</td>
+<td align="left">5. Severe damage</td>
+<td align="left">5. Severe damage</td>
+<td align="right">4</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">5. Severe damage</td>
+<td align="left">4</td>
+<td align="left">5. Severe damage</td>
+<td align="left">5. Severe damage</td>
+<td align="right">4</td>
+<td align="left">5. Severe damage</td>
+<td align="left">4</td>
+<td align="right">4</td>
+<td align="left">5. Severe damage</td>
+<td align="left">4</td>
+<td align="left">4</td>
+<td align="left">5. Highly prepared</td>
+<td align="left">5. Highly prepared</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="right">3</td>
+<td align="left">5. Highly prepared</td>
+<td align="left">4</td>
+<td align="left">5. Highly prepared</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">4</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="left">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="left">3</td>
+<td align="left">5. Highly knowledgeable</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="left">5. Highly knowledgeable</td>
+<td align="left">5. Highly knowledgeable</td>
+<td align="right">4</td>
+<td align="left">5. Highly knowledgeable</td>
+<td align="right">4</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">University degree or higher</td>
+<td align="right">4</td>
+<td align="left">Yes</td>
+<td align="left">IT &amp; telecommunications</td>
+<td align="left">Male</td>
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="left">2022/05/18 4:13:26 PM GMT+2</td>
+<td align="left">5 Very likely</td>
+<td align="left">3</td>
+<td align="right">2</td>
+<td align="left">1. Not likely at all</td>
+<td align="left">1. Not likely at all</td>
+<td align="left">5 Very likely</td>
+<td align="left">3</td>
+<td align="left">5 Very likely</td>
+<td align="left">4</td>
+<td align="left">5. Severe damage</td>
+<td align="left">3</td>
+<td align="right">3</td>
+<td align="left">2</td>
+<td align="left">1. No damage</td>
+<td align="left">5. Severe damage</td>
+<td align="left">5. Severe damage</td>
+<td align="left">5. Severe damage</td>
+<td align="left">5. Severe damage</td>
+<td align="left">4</td>
+<td align="left">4</td>
+<td align="right">3</td>
+<td align="left">4</td>
+<td align="left">4</td>
+<td align="right">2</td>
+<td align="left">2</td>
+<td align="left">5. Severe damage</td>
+<td align="left">5. Severe damage</td>
+<td align="left">4</td>
+<td align="left">2</td>
+<td align="left">1. Not at all prepared</td>
+<td align="left">1. Not at all prepared</td>
+<td align="left">1. Not at all prepared</td>
+<td align="left">5. Highly prepared</td>
+<td align="left">5. Highly prepared</td>
+<td align="left">4</td>
+<td align="right">3</td>
+<td align="left">5. Highly prepared</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">1. Not at all prepared</td>
+<td align="left">3</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="left">5. Highly knowledgeable</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="left">1. Not at all knowledgeable</td>
+<td align="left">2</td>
+<td align="left">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="left">5. Highly knowledgeable</td>
+<td align="left">5. Highly knowledgeable</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="right">2</td>
+<td align="left">5. Highly knowledgeable</td>
+<td align="right">3</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">University degree or higher</td>
+<td align="right">4</td>
+<td align="left">Yes</td>
+<td align="left">IT &amp; telecommunications</td>
+<td align="left">Male</td>
+<td align="right">25</td>
+</tr>
+<tr class="odd">
+<td align="left">2022/05/18 5:37:35 PM GMT+2</td>
+<td align="left">4</td>
+<td align="left">1. Not likely at all</td>
+<td align="right">3</td>
+<td align="left">1. Not likely at all</td>
+<td align="left">1. Not likely at all</td>
+<td align="left">1. Not likely at all</td>
+<td align="left">1. Not likely at all</td>
+<td align="left">1. Not likely at all</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">I don’t know</td>
+<td align="right">2</td>
+<td align="left">I don’t know</td>
+<td align="left">I don’t know</td>
+<td align="left">I don’t know</td>
+<td align="left">I don’t know</td>
+<td align="left">I don’t know</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="right">2</td>
+<td align="left">1. No damage</td>
+<td align="left">1. No damage</td>
+<td align="right">2</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">1. Not at all prepared</td>
+<td align="left">1. Not at all prepared</td>
+<td align="left">1. Not at all prepared</td>
+<td align="left">1. Not at all prepared</td>
+<td align="left">1. Not at all prepared</td>
+<td align="right">2</td>
+<td align="left">3</td>
+<td align="left">I don’t know</td>
+<td align="left">2</td>
+<td align="left">I don’t know</td>
+<td align="left">I don’t know</td>
+<td align="left">I don’t know</td>
+<td align="left">I don’t know</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="left">3</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">1. Not at all knowledgeable</td>
+<td align="left">1. Not at all knowledgeable</td>
+<td align="left">1. Not at all knowledgeable</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="right">2</td>
+<td align="left">4</td>
+<td align="right">4</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">University degree or higher</td>
+<td align="right">5</td>
+<td align="left">No</td>
+<td align="left">IT &amp; telecommunications</td>
+<td align="left">Male</td>
+<td align="right">26</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="steps-to-preprocess" class="slide section level1">
 <h1>Steps to preprocess</h1>
 <center>
-<div id="htmlwidget-79d31180bdfe23190963" style="width:768px;height:300px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-79d31180bdfe23190963">{"x":{"diagram":"digraph {\ngraph [layout = dot, rankdir = TB]\n\nnode [shape = rectangle]\nrec1 [label = \"Step 1. Creating mapping tibble between original column names and collected ones\"]\nrec2 [label = \"Step 2. Splitting the data depending on scale (Likert, dichotomous, numeric\"]\nrec3 [label =  \"Step 3. For each datarame we do a conversion between original values mainly with pivoting.\"]\nrec4 [label = \"Step 4. Joining the DataFrames into one, final one.\"]\n\n# edge definitions with the node IDs\nrec1 -> rec2 -> rec3 -> rec4\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ffa3c2d4bebc53d4a0a4" style="width:768px;height:300px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ffa3c2d4bebc53d4a0a4">{"x":{"diagram":"digraph {\ngraph [layout = dot, rankdir = TB]\n\nnode [shape = rectangle]\nrec1 [label = \"Step 1. Creating mapping tibble between original column names and collected ones\"]\nrec2 [label = \"Step 2. Splitting the data depending on scale (Likert, dichotomous, numeric\"]\nrec3 [label =  \"Step 3. For each datarame we do a conversion between original values mainly with pivoting.\"]\nrec4 [label = \"Step 4. Joining the DataFrames into one, final one.\"]\n\n# edge definitions with the node IDs\nrec1 -> rec2 -> rec3 -> rec4\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 </div>
 <div id="full-reproducibility" class="slide section level1">
 <h1>Full reproducibility</h1>
-<p>groundhog library GitHub Google Drive</p>
+<ol style="list-style-type: decimal">
+<li>Groundhog library for reproducible environment</li>
+<li>GitHub for working on code (we created issue and PR, as well as
+merge to master branch)</li>
+<li>Google Drive for storing data (we know that storing data on public
+repository is not a good practice)</li>
+<li></li>
+</ol>
 </div>
 <div id="results" class="slide section level1">
 <h1>Results</h1>
