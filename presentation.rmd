@@ -20,11 +20,24 @@ library(DiagrammeR)
 1. Searching for the right study
 2. The original study 
 3. Survey replication
-4. Steps to preprocess
-5. Coding
-6. Results
+4. Extended study
+5. Original data
+6. Gathered data
+7. Steps to preprocess
+8. Functions and good practice coding
+9. Results
 
 # Searching for the study
+
+What we looked for in our target study:
+<br />
+1. Available data with labeled and coherent variables
+<br />
+2. Available survey process
+<br />
+3. Available codes
+<br />
+4. A realistic reproducible approach
 
 
 # Original Study
@@ -54,6 +67,7 @@ Link to our survey: https://docs.google.com/forms/d/e/1FAIpQLSeN__k2KDdbRZIkhZ3u
 
 # Extended study
 
+We extended the study by collecting data from Polish respondents and we managed to get a little over 20 respondents to participate. As the sample we collected was rather small, there was no point in extending the study by Poland's regional analysis. Therefore we focues on the radar graphs and the perceptions of risk by country.
 
 # Original data
 

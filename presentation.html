@@ -1624,13 +1624,19 @@ Mateusz Baryła, Konrad Lewszyk
 <li>Searching for the right study</li>
 <li>The original study</li>
 <li>Survey replication</li>
+<li>Extended study</li>
+<li>Original data</li>
+<li>Gathered data</li>
 <li>Steps to preprocess</li>
-<li>Coding</li>
+<li>Functions and good practice coding</li>
 <li>Results</li>
 </ol>
 </div>
 <div id="searching-for-the-study" class="slide section level1">
 <h1>Searching for the study</h1>
+<p>What we looked for in our target study: <br /> 1. Available data with
+labeled and coherent variables <br /> 2. Available survey process <br />
+3. Available codes <br /> 4. A realistic reproducible approach</p>
 </div>
 <div id="original-study" class="slide section level1">
 <h1>Original Study</h1>
@@ -1648,6 +1654,11 @@ Mateusz Baryła, Konrad Lewszyk
 </div>
 <div id="extended-study" class="slide section level1">
 <h1>Extended study</h1>
+<p>We extended the study by collecting data from Polish respondents and
+we managed to get a little over 20 respondents to participate. As the
+sample we collected was rather small, there was no point in extending
+the study by Poland’s regional analysis. Therefore we focues on the
+radar graphs and the perceptions of risk by country.</p>
 </div>
 <div id="original-data" class="slide section level1">
 <h1>Original data</h1>
@@ -2763,8 +2774,8 @@ Mateusz Baryła, Konrad Lewszyk
 <div id="steps-to-preprocess" class="slide section level1">
 <h1>Steps to preprocess</h1>
 <center>
-<div id="htmlwidget-ffa3c2d4bebc53d4a0a4" style="width:768px;height:300px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ffa3c2d4bebc53d4a0a4">{"x":{"diagram":"digraph {\ngraph [layout = dot, rankdir = TB]\n\nnode [shape = rectangle]\nrec1 [label = \"Step 1. Creating mapping tibble between original column names and collected ones\"]\nrec2 [label = \"Step 2. Splitting the data depending on scale (Likert, dichotomous, numeric\"]\nrec3 [label =  \"Step 3. For each datarame we do a conversion between original values mainly with pivoting.\"]\nrec4 [label = \"Step 4. Joining the DataFrames into one, final one.\"]\n\n# edge definitions with the node IDs\nrec1 -> rec2 -> rec3 -> rec4\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-686b00cc97765279e4a0" style="width:768px;height:300px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-686b00cc97765279e4a0">{"x":{"diagram":"digraph {\ngraph [layout = dot, rankdir = TB]\n\nnode [shape = rectangle]\nrec1 [label = \"Step 1. Creating mapping tibble between original column names and collected ones\"]\nrec2 [label = \"Step 2. Splitting the data depending on scale (Likert, dichotomous, numeric\"]\nrec3 [label =  \"Step 3. For each datarame we do a conversion between original values mainly with pivoting.\"]\nrec4 [label = \"Step 4. Joining the DataFrames into one, final one.\"]\n\n# edge definitions with the node IDs\nrec1 -> rec2 -> rec3 -> rec4\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 </div>
 <div id="full-reproducibility" class="slide section level1">
