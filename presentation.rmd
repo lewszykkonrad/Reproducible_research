@@ -5,12 +5,11 @@ author: "Mateusz Baryła, Konrad Lewszyk"
 date: "May 26, 2022"
 output:
   slidy_presentation: 
-    fig_width: 1
-    fig_height: 1
   beamer_presentation: default
 ---
 
 ```{r, echo = FALSE, results = 'hide', message = FALSE, warning = FALSE, fig.show = 'hide'}
+
 library(dplyr)
 library(DiagrammeR)
 ```
@@ -25,8 +24,8 @@ library(DiagrammeR)
 
 # Searching for the study
 
-# Original Study
 
+# Original Study
 ```{r, out.width = "600px", echo = FALSE, fig.align='center'}
 knitr::include_graphics("pictures_for_presentation/picture_1.jpg")
 ```
@@ -47,10 +46,9 @@ knitr::include_graphics("pictures_for_presentation/picture_4.jpg")
 ```
 
 # Survey replication
-<br />
-```{r, out.width = "600px", echo = FALSE, fig.align='center'}
-knitr::include_graphics("pictures_for_presentation/survey_image_1.jpg")
-```
+
+Link to our survey: https://docs.google.com/forms/d/e/1FAIpQLSeN__k2KDdbRZIkhZ3ubUIVTXc6kPAtjSIqh1bI07bDzVrpNg/viewform?fbclid=IwAR26g8tf0azKeNHSU1FgNR1wvvhTrOis891X9dU9bBNVU1gdfoan9cZkcVE
+
 
 # Extended study
 
