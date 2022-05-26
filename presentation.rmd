@@ -25,7 +25,8 @@ library(DiagrammeR)
 6. Gathered data
 7. Steps to preprocess
 8. Functions and good practice coding
-9. Results
+9. Full reproducibility
+10. Results
 
 # Searching for the study
 
@@ -67,7 +68,11 @@ Link to our survey: https://docs.google.com/forms/d/e/1FAIpQLSeN__k2KDdbRZIkhZ3u
 
 # Extended study
 
-We extended the study by collecting data from Polish respondents and we managed to get a little over 20 respondents to participate. As the sample we collected was rather small, there was no point in extending the study by Poland's regional analysis. Therefore we focues on the radar graphs and the perceptions of risk by country.
+We extended the study by collecting data from Polish respondents and we managed to get a little over 20 respondents to participate. As the sample we collected was rather small, there was no point in extending the study by Poland's regional analysis. Therefore we focued on the radar graphs and the perceptions of risk by country.
+
+<br />
+
+It is crucial to mention that the study was conducted during the onset of the pandemic in 2020. Our extension of the study was done after the vaccination period and towards the end of the pandemic. This means that our respondents could perceive risk differently than they do now, and the time factor impacts our study.
 
 # Original data
 
@@ -108,6 +113,20 @@ rec1 -> rec2 -> rec3 -> rec4
 ```
 </center>
 
+# Functions and good practice coding
+
+In order to follow the teachings of the Reproducible Research class, we wrote the following functions to automate our graphing process:
+<br />
+1. derive_necessary_columns
+<br />
+2. aggregate_method
+<br />
+3. derive_dataframe_for_country
+<br />
+4. graph_radar
+<br />
+
+
 # Full reproducibility
 
 1. Groundhog library for reproducible environment
@@ -116,6 +135,29 @@ rec1 -> rec2 -> rec3 -> rec4
 4.
 
 # Results
+
+## Damage
+```{r, out.width = "500px", echo = FALSE}
+knitr::include_graphics("pictures_for_presentation/result_1.jpg")
+knitr::include_graphics("pictures_for_presentation/result_2.jpg")
+knitr::include_graphics("pictures_for_presentation/result_3.jpg")
+```
+<br />
+
+## Preparedness
+```{r, out.width = "500px", echo = FALSE}
+knitr::include_graphics("pictures_for_presentation/result_4.jpg")
+knitr::include_graphics("pictures_for_presentation/result_5.jpg")
+knitr::include_graphics("pictures_for_presentation/result_6.jpg")
+```
+<br />
+
+## Knowledge
+```{r, out.width = "500px", echo = FALSE}
+knitr::include_graphics("pictures_for_presentation/result_7.jpg")
+knitr::include_graphics("pictures_for_presentation/result_8.jpg")
+knitr::include_graphics("pictures_for_presentation/result_9.jpg")
+```
 
 # Sources
 
